@@ -3,10 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router";
 import { routes } from "./routes";
-
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <RouterProvider router={routes}></RouterProvider>
+        <Provider store={store}>
+            <RouterProvider router={routes}></RouterProvider>
+        </Provider>
+
+        <Toaster position="top-center" richColors />
     </StrictMode>
 );
