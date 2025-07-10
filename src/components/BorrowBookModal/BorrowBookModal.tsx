@@ -35,14 +35,20 @@ export function BorrowBookModal({ id }: { id: string }) {
     const navigate = useNavigate();
     const [borrowBook, { isLoading, isError, isSuccess }] =
         useBorrowBookMutation();
+
     const form = useForm();
     const onSubmit = (data) => {
         const borrowData = { ...data, id };
         borrowBook(borrowData);
-        form.reset();
-        setIsOpen(false)
-        toast.success("Book Borrowed Successfully");
-        navigate("/borrow-summary")
+        console.log(isSuccess);
+        if (isSuccess) {
+            form.reset();
+            setIsOpen(false);
+            toast.success("Book Borrowed Successfully");
+            navigate("/borrow-summary");
+        } else {
+            return toast.error("Something Was wrong!");
+        }
     };
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

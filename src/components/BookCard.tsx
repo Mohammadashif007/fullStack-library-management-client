@@ -26,7 +26,7 @@ const BookCard = ({ book }: {book: TBook}) => {
             <div className="flex gap-5">
                 {/* <Button className="bg-blue-700 text-white">Borrow Book</Button> */}
                 <BorrowBookModal id={_id}></BorrowBookModal>
-                <EditBookModal></EditBookModal>
+                <EditBookModal bookId={_id}></EditBookModal>
                 <Button className="bg-blue-700 text-white cursor-pointer">
                     Delete Book
                 </Button>
