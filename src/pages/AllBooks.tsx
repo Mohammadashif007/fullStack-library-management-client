@@ -1,13 +1,58 @@
+import { useGetAllBooksQuery } from "@/redux/api/booksApi";
+import Table from "./Table";
 
-import BookTable from "@/components/BookTable";
+type TBook = {
+    _id: string;
+    title: string;
+    author: string;
+    genre: string;
+    copies: number;
+    isbn: number;
+    available: boolean;
+};
+
 const AllBooks = () => {
-
-
+    const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
+    if (isLoading) return <p className="text-center p-5">Loading...😜</p>;
+    if (isError)
+        return <span className="mx-auto">Failed to load books...😑</span>;
+    const books = data.data;
+    console.log(books);
     return (
         <div>
-            <div className="">
-                    <BookTable></BookTable>
-            </div>
+            <h1 className="text-3xl font-bold text-center">All Books</h1>
+            <table className="w-full border-collapse border border-gray-300">
+                <thead className="bg-gray-200 text-left">
+                    <tr>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Title
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Author
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Genre
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Copies
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            ISBN
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Available
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {books.map((book: TBook) => (
+                        <Table key={book._id} book={book}></Table>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

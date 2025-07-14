@@ -6,13 +6,14 @@ import {
     createColumnHelper,
     getSortedRowModel,
 } from "@tanstack/react-table";
+import EditBook from "./EditBook";
 
 type TBook = {
     title: string;
     author: string;
     genre: string;
     copies: number;
-    isbn: string;
+    isbn: number;
     available: boolean;
 };
 
@@ -42,7 +43,11 @@ const columns = [
     columnHelper.accessor("available", {
         header: "Availability",
         cell: (info) =>
-            info.getValue() ? <span>Available</span> : <span>unavailable</span>,
+            info.getValue() ? (
+                <span className="text-green-700">Available</span>
+            ) : (
+                <span className="text-red-600">unavailable</span>
+            ),
     }),
     columnHelper.display({
         id: "actions",
@@ -51,20 +56,17 @@ const columns = [
             const book = row.original;
             return (
                 <div className="flex gap-2">
-                    <button
-                        onClick={() => console.log("Edit", book)}
-                        className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded cursor-pointer"
+                    <div
+                        className=" text-white px-3 py-1 rounded"
                     >
-                        Edit
-                    </button>
+                        <EditBook book={book}></EditBook>
+                    </div>
                     <button
-                        onClick={() => console.log("Delete", book)}
                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer"
                     >
                         Delete
                     </button>
                     <button
-                        onClick={() => console.log("Borrow", book)}
                         className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded cursor-pointer"
                     >
                         Borrow
@@ -98,42 +100,47 @@ const BookTable = () => {
             <h1 className="text-2xl font-bold mb-4 text-indigo-700 text-center">
                 Employee Table
             </h1>
-            <table className="table-auto w-full border border-indigo-400 shadow-lg rounded-md overflow-hidden bg-white">
-                <thead className="bg-indigo-500 text-white">
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <th
-                                    className="p-3 cursor-pointer select-none hover:bg-indigo-600 transition-all text-left"
-                                    key={header.id}
-                                >
-                                    {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                    )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {table.getRowModel().rows.map((row) => (
-                        <tr
-                            key={row.id}
-                            className="hover:bg-indigo-50 transition-all even:bg-indigo-100"
-                        >
-                            {row.getVisibleCells().map((cell) => (
-                                <td className="border px-4 py-2" key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="overflow-x-auto">
+                <table className="min-w-full border border-indigo-400 shadow-lg rounded-md bg-white">
+                    <thead className="bg-indigo-500 text-white">
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <tr key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <th
+                                        className="p-3 cursor-pointer select-none hover:bg-indigo-600 transition-all text-left"
+                                        key={header.id}
+                                    >
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody>
+                        {table.getRowModel().rows.map((row) => (
+                            <tr
+                                key={row.id}
+                                className="hover:bg-indigo-50 transition-all even:bg-indigo-100"
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td
+                                        className="border px-4 py-2"
+                                        key={cell.id}
+                                    >
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

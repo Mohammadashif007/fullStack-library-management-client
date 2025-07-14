@@ -7,9 +7,14 @@ export const booksApi = createApi({
         getAllBooks: build.query({
             query: () => "/books",
         }),
+        updateBooks: build.mutation({
+            query: ({ id, newPost }) => ({
+                url: `/books/${id}`,
+                method: "PATCH",
+                body: newPost,
+            }),
+        }),
     }),
 });
 
-export const {
-    useGetAllBooksQuery
-} = booksApi;
+export const { useGetAllBooksQuery, useUpdateBooksMutation } = booksApi;
