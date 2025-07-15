@@ -12,7 +12,7 @@ type TBook = {
 };
 
 const AllBooks = () => {
-    const { data, isLoading, isError } = useGetAllBooksQuery(undefined);
+    const { data, isLoading, isError, refetch } = useGetAllBooksQuery(undefined);
     if (isLoading) return <p className="text-center p-5">Loading...😜</p>;
     if (isError)
         return <span className="mx-auto">Failed to load books...😑</span>;

@@ -13,6 +13,8 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { useUpdateBooksMutation } from "@/redux/api/booksApi";
+import { useState } from "react";
+import { toast } from "sonner";
 
 type TBook = {
     _id?: string;
@@ -25,6 +27,7 @@ type TBook = {
 };
 
 const EditBook = ({ book }: { book: TBook }) => {
+    const [open, setOpen] = useState(false);
     const [updateBooks, { isLoading, error }] = useUpdateBooksMutation();
     const form = useForm({
         defaultValues: book,
@@ -36,14 +39,15 @@ const EditBook = ({ book }: { book: TBook }) => {
                 id: book._id,
                 newPost: formData
             }
-            const res = await updateBooks(payload).unwrap();
-            console.log(res);
+            await updateBooks(payload).unwrap();
+            setOpen(false)
+            toast.success('Book updated successfully')
         } catch (error) {
             console.log(error);
         }
     };
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button className="cursor-pointer">Edit Book</Button>
             </DialogTrigger>
