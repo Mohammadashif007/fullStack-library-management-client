@@ -3,6 +3,7 @@ import { toast } from "sonner"; // Optional for toast
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAddBookMutation } from "@/redux/api/booksApi";
+import { useNavigate } from "react-router";
 
 type TBook = {
     title: string;
@@ -14,18 +15,10 @@ type TBook = {
 };
 
 const AddBooks = () => {
-    const { register, handleSubmit, reset } = useForm<TBook>({
-        defaultValues: {
-            title: "J.K. Rowling",
-            author: "no one",
-            genre: "fantasy",
-            copies: 55,
-            isbn: 99898,
-            available: true
-        }
-    });
+    const { register, handleSubmit, reset } = useForm<TBook>();
+    const navigate = useNavigate();
 
-    const [addBook, { isLoading, error }] = useAddBookMutation();
+    const [addBook, { isLoading}] = useAddBookMutation();
 
     const onSubmit = async (data: TBook) => {
         // Automatically set availability based on copies
@@ -35,12 +28,10 @@ const AddBooks = () => {
         };
 
         try {
-            const res = await addBook(payload).unwrap();
-            console.log(res);
-            console.log("✅ Book Payload:", payload);
-            // await createBook(payload).unwrap(); // connect with your API
+            await addBook(payload).unwrap();
             toast.success("📚 Book added successfully!");
-            reset(); // clear form
+            reset();
+            navigate("/books")
         } catch (err) {
             console.error(err);
             toast.error("❌ Failed to add book");

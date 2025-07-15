@@ -7,11 +7,11 @@ const Footer = () => {
                 {/* Site Info */}
                 <div>
                     <h2 className="text-xl font-semibold text-white mb-2">
-                        📚 Lolita Library
+                        📚 BorrowBook
                     </h2>
                     <p className="text-sm">
-                        Lolita Library is the best library in the town. We want
-                        to build a society where everyone can read for free. 👻
+                        BorrowBook is the best library in the town. We want to
+                        build a society where everyone can read for free. 👻
                     </p>
                 </div>
 
@@ -58,7 +58,7 @@ const Footer = () => {
                         </a>
                     </p>
                     <p className="text-sm mt-1">
-                        © {new Date().getFullYear()} Lolita Library. All rights
+                        © {new Date().getFullYear()} 📚 BorrowBook. All rights
                         reserved.
                     </p>
                 </div>

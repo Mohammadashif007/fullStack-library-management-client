@@ -4,7 +4,7 @@ import { useDeleteBooksMutation } from "@/redux/api/booksApi";
 import Swal from "sweetalert2";
 
 type TBook = {
-    _id?: string;
+    _id: string;
     title: string;
     author: string;
     genre: string;
@@ -15,6 +15,10 @@ type TBook = {
 
 const Table = ({ book }: { book: TBook }) => {
     const [deleteBook, { isLoading, error }] = useDeleteBooksMutation();
+
+    if (error)
+        return <p className="text-center text-red-600">Something went wrong</p>;
+
     const { _id } = book;
 
     const handleDelete = async (id: string) => {
@@ -31,9 +35,9 @@ const Table = ({ book }: { book: TBook }) => {
         if (result.isConfirmed) {
             try {
                 await deleteBook(id).unwrap();
-                Swal.fire('Deleted!', 'The book has been deleted.', 'success');
+                Swal.fire("Deleted!", "The book has been deleted.", "success");
             } catch (error) {
-                Swal.fire('Error!', 'Failed to delete the book.', 'error');
+                Swal.fire("Error!", "Failed to delete the book.", "error");
                 console.log(error);
             }
         }
@@ -60,7 +64,7 @@ const Table = ({ book }: { book: TBook }) => {
                     {/* <button className="px-5 py-2 rounded border cursor-pointer bg-green-500 text-white">
                         Borrow
                     </button> */}
-                   <BorrowBook></BorrowBook>
+                    <BorrowBook book={_id}></BorrowBook>
                     <button
                         onClick={() => handleDelete(_id)}
                         className="px-5 py-2 rounded border cursor-pointer bg-red-500 text-white"

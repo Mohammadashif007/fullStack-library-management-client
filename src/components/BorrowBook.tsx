@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -17,19 +18,42 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
+import { useState } from "react";
+import { useAddBorrowMutation } from "@/redux/api/borrowApi";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
+
 
 interface IBorrow {
+    book: string;
     dueDate: Date;
     quantity: number;
 }
 
-export function BorrowBook() {
+export function BorrowBook({ book }: Partial<IBorrow>) {
+    const [addBorrow, { isLoading }] = useAddBorrowMutation();
+    const [open, setOpen] = useState(false);
     const form = useForm<IBorrow>();
-    const onSubmit = (data: IBorrow) => {
-        console.log(data);
+    const navigate = useNavigate();
+
+    const onSubmit = async (data: IBorrow) => {
+        const borrowData = {
+            ...data,
+            dueDate: format(data.dueDate, "yyyy-MM-dd"),
+            book,
+        };
+        try {
+            await addBorrow(borrowData).unwrap();
+            toast.success("Book borrowed successfully");
+            setOpen(false);
+            navigate("/borrow-summary");
+        } catch (error: any) {
+            const message = error?.data?.message;
+            toast.error(message);
+        }
     };
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button className=" cursor-pointer bg-green-500 text-white">
                     Borrow
@@ -51,7 +75,10 @@ export function BorrowBook() {
                                 <FormItem>
                                     <FormLabel>Quantity</FormLabel>
                                     <FormControl>
-                                        <Input {...field}></Input>
+                                        <Input
+                                            {...field}
+                                            value={field.value || ""}
+                                        ></Input>
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -104,7 +131,9 @@ export function BorrowBook() {
                             <DialogClose asChild>
                                 <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit" className="cursor-pointer">
+                                {isLoading ? "Borrowing..." : "Save changes"}
+                            </Button>
                         </DialogFooter>
                     </Form>
                 </form>

@@ -28,8 +28,8 @@ type TBook = {
 
 const EditBook = ({ book }: { book: TBook }) => {
     const [open, setOpen] = useState(false);
-    const [updateBooks, { isLoading, error }] = useUpdateBooksMutation();
-    const form = useForm({
+    const [updateBooks, { isLoading }] = useUpdateBooksMutation();
+    const form = useForm<TBook>({
         defaultValues: book,
     });
 
@@ -37,11 +37,11 @@ const EditBook = ({ book }: { book: TBook }) => {
         try {
             const payload = {
                 id: book._id,
-                newPost: formData
-            }
+                newPost: formData,
+            };
             await updateBooks(payload).unwrap();
-            setOpen(false)
-            toast.success('Book updated successfully')
+            setOpen(false);
+            toast.success("Book updated successfully");
         } catch (error) {
             console.log(error);
         }
@@ -142,7 +142,7 @@ const EditBook = ({ book }: { book: TBook }) => {
                                 <Button variant="outline">Cancel</Button>
                             </DialogClose>
                             <Button className="cursor-pointer" type="submit">
-                                Save changes
+                                {isLoading ? "Updating" : "Update"}
                             </Button>
                         </DialogFooter>
                     </form>

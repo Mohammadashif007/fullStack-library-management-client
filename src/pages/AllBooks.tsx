@@ -12,15 +12,18 @@ type TBook = {
 };
 
 const AllBooks = () => {
-    const { data, isLoading, isError, refetch } = useGetAllBooksQuery(undefined);
+    const { data, isLoading, isError } = useGetAllBooksQuery(undefined, {
+        refetchOnMountOrArgChange: true,
+    });
     if (isLoading) return <p className="text-center p-5">Loading...😜</p>;
     if (isError)
         return <span className="mx-auto">Failed to load books...😑</span>;
     const books = data.data;
-    console.log(books);
     return (
-        <div>
-            <h1 className="text-3xl font-bold text-center">All Books</h1>
+        <div className="min-h-screen px-4 sm:px-10 py-8 bg-gray-50">
+            <h1 className="text-4xl font-extrabold text-center mb-10 text-gray-800">
+                All Books
+            </h1>
             <table className="w-full border-collapse border border-gray-300">
                 <thead className="bg-gray-200 text-left">
                     <tr>
