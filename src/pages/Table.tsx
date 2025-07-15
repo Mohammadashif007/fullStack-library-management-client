@@ -1,6 +1,6 @@
+import { BorrowBook } from "@/components/BorrowBook";
 import EditBook from "@/components/EditBook";
 import { useDeleteBooksMutation } from "@/redux/api/booksApi";
-import { toast } from "sonner";
 import Swal from "sweetalert2";
 
 type TBook = {
@@ -57,9 +57,10 @@ const Table = ({ book }: { book: TBook }) => {
                 <div className="flex gap-3 space-y-1 justify-center items-center p-2">
                     <EditBook book={book}></EditBook>
 
-                    <button className="px-5 py-2 rounded border cursor-pointer bg-green-500 text-white">
+                    {/* <button className="px-5 py-2 rounded border cursor-pointer bg-green-500 text-white">
                         Borrow
-                    </button>
+                    </button> */}
+                   <BorrowBook></BorrowBook>
                     <button
                         onClick={() => handleDelete(_id)}
                         className="px-5 py-2 rounded border cursor-pointer bg-red-500 text-white"

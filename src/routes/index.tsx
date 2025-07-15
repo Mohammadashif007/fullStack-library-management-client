@@ -19,7 +19,7 @@ export const routes = createBrowserRouter([
                 element: <AllBooks></AllBooks>,
             },
             {
-                path: "/add-book",
+                path: "/create-book",
                 element: <AddBooks></AddBooks>,
             },
             {
