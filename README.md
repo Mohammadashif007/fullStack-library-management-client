@@ -55,15 +55,15 @@ Backend API: Node.js, Express, MongoDB
 
 ⚙️ Installation & Setup
 
-# Clone repository
+### Clone repository
 git clone https://github.com/Mohammadashif007/fullStack-library-management-client.git
 
-# Navigate into project
+### Navigate into project
 cd fullStack-library-management-client
 
-# Install dependencies
+### Install dependencies
 npm install
 
-# Run development server
+### Run development server
 npm run dev
 
