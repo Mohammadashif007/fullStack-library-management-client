@@ -61,9 +61,6 @@ const Table = ({ book }: { book: TBook }) => {
                 <div className="flex gap-3 space-y-1 justify-center items-center p-2">
                     <EditBook book={book}></EditBook>
 
-                    {/* <button className="px-5 py-2 rounded border cursor-pointer bg-green-500 text-white">
-                        Borrow
-                    </button> */}
                     <BorrowBook book={_id}></BorrowBook>
                     <button
                         onClick={() => handleDelete(_id)}

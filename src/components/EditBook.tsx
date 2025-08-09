@@ -29,16 +29,23 @@ type TBook = {
 const EditBook = ({ book }: { book: TBook }) => {
     const [open, setOpen] = useState(false);
     const [updateBooks, { isLoading }] = useUpdateBooksMutation();
+
     const form = useForm<TBook>({
         defaultValues: book,
     });
 
     const onSubmit = async (formData: TBook) => {
+        const updatedData = {
+            ...formData,
+            copies: Number(formData.copies),
+            isbn: Number(formData.isbn),
+        };
         try {
             const payload = {
                 id: book._id,
-                newPost: formData,
+                newPost: updatedData,
             };
+
             await updateBooks(payload).unwrap();
             setOpen(false);
             toast.success("Book updated successfully");
@@ -118,21 +125,15 @@ const EditBook = ({ book }: { book: TBook }) => {
                                 <FormItem>
                                     <FormLabel className="">ISBN</FormLabel>
                                     <FormControl>
-                                        <Input className="" {...field} />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="available"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel className="">
-                                        Availability
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input className="" {...field} />
+                                        <Input
+                                            type="number"
+                                            {...field}
+                                            onChange={(e) =>
+                                                field.onChange(
+                                                    Number(e.target.value)
+                                                )
+                                            }
+                                        />
                                     </FormControl>
                                 </FormItem>
                             )}

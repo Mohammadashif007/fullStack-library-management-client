@@ -21,7 +21,7 @@ const AddBooks = () => {
     const [addBook, { isLoading}] = useAddBookMutation();
 
     const onSubmit = async (data: TBook) => {
-        // Automatically set availability based on copies
+        console.log(data);
         const payload = {
             ...data,
             available: data.copies > 0,
