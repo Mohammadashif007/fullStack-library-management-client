@@ -1,5 +1,4 @@
 import { useGetBookByIdQuery } from "@/redux/api/booksApi";
-import React from "react";
 import { useParams } from "react-router";
 
 const BookDetails = () => {

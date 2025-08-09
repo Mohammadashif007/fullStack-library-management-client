@@ -24,6 +24,8 @@ const AllBooks = () => {
             <h1 className="text-4xl font-extrabold text-center mb-10 text-gray-800">
                 All Books
             </h1>
+            <div className="overflow-x-auto">
+
             <table className="w-full border-collapse border border-gray-300">
                 <thead className="bg-gray-200 text-left">
                     <tr>
@@ -56,6 +58,7 @@ const AllBooks = () => {
                     ))}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 };

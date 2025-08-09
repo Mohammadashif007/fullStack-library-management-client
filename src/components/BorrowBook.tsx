@@ -42,6 +42,11 @@ export function BorrowBook({ book }: Partial<IBorrow>) {
             dueDate: format(data.dueDate, "yyyy-MM-dd"),
             book,
         };
+
+        if(data.quantity < 0){
+           toast.success("Negative number can't be acceptable!"); 
+        }
+       
         try {
             await addBorrow(borrowData).unwrap();
             toast.success("Book borrowed successfully");
