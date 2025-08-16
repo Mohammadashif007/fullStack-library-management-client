@@ -1,8 +1,9 @@
+import { config } from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const borrowApi = createApi({
     reducerPath: "borrowApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+    baseQuery: fetchBaseQuery({ baseUrl: config.base_url }),
     tagTypes: ["Borrow", "Books"],
     endpoints: (build) => ({
         getAllBorrows: build.query({
@@ -16,7 +17,6 @@ export const borrowApi = createApi({
                 body: payload,
             }),
             invalidatesTags: ["Borrow", "Books"],
-           
         }),
     }),
 });
