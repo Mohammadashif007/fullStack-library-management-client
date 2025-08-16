@@ -17,7 +17,7 @@ const AllBooks = () => {
     });
     if (isLoading) return <p className="text-center p-5">Loading...😜</p>;
     if (isError)
-        return <span className="mx-auto">Failed to load books...😑</span>;
+        return <p className="text-center p-5">Failed to load books...😑</p>;
     const books = data.data;
     return (
         <div className="min-h-screen px-4 sm:px-10 py-8 bg-gray-50">

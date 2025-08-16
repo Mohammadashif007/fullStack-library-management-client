@@ -18,7 +18,7 @@ const AddBooks = () => {
     const { register, handleSubmit, reset } = useForm<TBook>();
     const navigate = useNavigate();
 
-    const [addBook, { isLoading}] = useAddBookMutation();
+    const [addBook, { isLoading }] = useAddBookMutation();
 
     const onSubmit = async (data: TBook) => {
         console.log(data);
@@ -31,7 +31,7 @@ const AddBooks = () => {
             await addBook(payload).unwrap();
             toast.success("📚 Book added successfully!");
             reset();
-            navigate("/books")
+            navigate("/books");
         } catch (err) {
             console.error(err);
             toast.error("❌ Failed to add book");
@@ -39,7 +39,7 @@ const AddBooks = () => {
     };
 
     return (
-        <div className="max-w-xl mx-auto my-8 bg-white shadow-lg rounded-2xl p-6 border">
+        <div className="max-w-xl mx-auto my-8 bg-white shadow-lg rounded-2xl p-6 border min-h-screen">
             <h2 className="text-2xl font-bold mb-6 text-center">
                 ➕ Add New Book
             </h2>

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -44,9 +43,9 @@ const BorrowBookById = () => {
 
     const [addBorrow, { isLoading }] = useAddBorrowMutation();
 
-    const onSubmit = async (data: TFormValues) => {
+    const onSubmit = async (data: any) => {
         try {
-            const result = await addBorrow(data).unwrap();
+            await addBorrow(data).unwrap();
             toast.success("📚 Book borrowed successfully");
             navigate("/borrow-summary");
         } catch (err: any) {

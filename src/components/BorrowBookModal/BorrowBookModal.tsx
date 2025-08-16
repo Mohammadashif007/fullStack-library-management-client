@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -25,19 +26,19 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { useBorrowBookMutation } from "@/redux/api/booksApi";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAddBorrowMutation } from "@/redux/api/borrowApi";
 
 export function BorrowBookModal({ id }: { id: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
-    const [borrowBook, { isLoading, isError, isSuccess }] =
-        useBorrowBookMutation();
+    const [borrowBook, { isLoading, isSuccess }] =
+        useAddBorrowMutation();
 
     const form = useForm();
-    const onSubmit = (data) => {
+    const onSubmit = (data: any) => {
         const borrowData = { ...data, id };
         borrowBook(borrowData);
         console.log(isSuccess);

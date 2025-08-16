@@ -2,7 +2,7 @@
 
 const Home = () => {
     return (
-        <div>
+        <div className="min-h-screen">
             <h1>This is home page</h1>
         </div>
     );

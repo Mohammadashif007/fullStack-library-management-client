@@ -1,5 +1,4 @@
 import { BorrowBookModal } from "./BorrowBookModal/BorrowBookModal";
-import { EditBookModal } from "./EditBookModal/EditBookModal";
 import { Button } from "./ui/button";
 
 export type TBook = {
@@ -26,7 +25,8 @@ const BookCard = ({ book }: {book: TBook}) => {
             <div className="flex gap-5">
                 {/* <Button className="bg-blue-700 text-white">Borrow Book</Button> */}
                 <BorrowBookModal id={_id}></BorrowBookModal>
-                <EditBookModal bookId={_id}></EditBookModal>
+                {/* <EditBookModal bookId={_id}></EditBookModal> */}
+               
                 <Button className="bg-blue-700 text-white cursor-pointer">
                     Delete Book
                 </Button>
